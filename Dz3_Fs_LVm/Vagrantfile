@@ -28,7 +28,22 @@ MACHINES = {
             :dfile => home + '/VirtualBox VMs/sata4.vdi',
             :size => 1024,
             :port => 4
-        }
+        },
+        :sata5 => {
+            :dfile => home + '/VirtualBox VMs/sata5.vdi',
+            :size => 2048,
+            :port => 5
+        },
+        :sata6 => {
+            :dfile => home + '/VirtualBox VMs/sata6.vdi',
+            :size => 2048,
+            :port => 6
+        },
+        :sata7 => {
+            :dfile => home + '/VirtualBox VMs/sata7.vdi',
+            :size => 2048,
+            :port => 7
+        },
     }
   },
 }
