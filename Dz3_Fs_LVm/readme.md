@@ -113,4 +113,11 @@ umount -f /new_home
 lvconvert --merge /dev/VolGroup00/fist_snap
 mount /dev/VolGroup00/new_home /new_home
 ls -la /new_home >> /root/result.txt
+mkfs.btrfs -m raid0 /dev/sdf /dev/sdg
+mount /dev/sdf /opt
+touch /opt/1_btrfs.txt /opt/sr_btrfs.txt /opt/egg_btrs.txt 
+btrfs subvolume create /opt/subvolume
+rm -f /opt/1_btrfs.txt
+ls -la /opt >> /root/result.txt
+btrfs subvolume delete /opt/subvolume
 ```
