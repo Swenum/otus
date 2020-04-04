@@ -1,22 +1,26 @@
 # 1. Запретить всем пользователям, кроме группы admin логин в выходные (суббота и воскресенье), без учета праздников
 
-добавляем pam_time.so в /etc/pam.d/sshd
+добавляем модули в /etc/pam.d/sshd
+
+Ограничения по времени pam_time.so
 
 ```bash
-account required /usr/lib64/security/pam_time.so
+account required pam_access.so
+account required pam_time.so
 ```
 
-добавляем запись в  /etc/security/time.conf
+ 
+Запретить группе правила входа по времени не получилось.
+Комбинация нескольких модулей.
+ /etc/pam.d/login
 ```bash
-*;*;!admin;!Wd0000-2400 
+account    [success=1 default=ignore] pam_succeed_if.so user ingroup admin
+account    required     pam_time.so
+```
+Добавляем запись в  /etc/security/time.conf запрещающую логин в выходные
+```bash
+login;*;*;Wk0000-2400
 ```
 
-```
-services;ttys;users;times
-Тут первое поле каким сервисам разрешаем логиниться (login, ssh).
-Второе поле тип консоли  (tty, pst/X).
-Третье имена и группы, на которых действут правило.
-Четвёртое поле задаёт время в которое разрешен логин.
-```
 
 # 2. Дать конкретному пользователю права работать с докером  и возможность рестартить докер сервис
