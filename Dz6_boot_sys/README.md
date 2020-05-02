@@ -3,12 +3,17 @@
 ##Сброс пароля способ первый:
 
 ![Edit-sys_boot_params:](https://github.com/Swenum/otus/blob/master/Dz6_boot_sys/Screenshot_1.png "Редактируем параметры загрузки")
+
 В ro заменяем o → w и добавляем init=/sysroot/bin/sh после rw.
 Монтируем системный раздел
 chroot /sysroot
+
 ![Set_pass:](https://github.com/Swenum/otus/blob/master/Dz6_boot_sys/Screenshot_2.png "Устанавливаем пароль")
+
 Меняем пароль.
+
 ![Selinux flag:](https://github.com/Swenum/otus/blob/master/Dz6_boot_sys/Screenshot_3.png "Selinux")
+
 Создаём файл-флаг для SELinux командой touch /.autorelabel
 чтобы пересчитались все маркеры безопасности.
 
@@ -16,6 +21,7 @@ chroot /sysroot
 Загружаем систему с другого носителя:
 
 ![Reset pass:](https://github.com/Swenum/otus/blob/master/Dz6_boot_sys/Screenshot_4.png "Сбрасываем пароль")
+
 Сбрасываем пароль, загрузившись с другой операционной системы и\или другого носителя
 Входим в ситему, монтируем LVM, chroot'тимся в него, меняем пароль, делаем флаг для  Selinux пересчитать маркёры безопасности,
 выходим из chroot, отмонтируем файловую систему. Перезапускаемся и получаем систему со сброшенным паролем.
