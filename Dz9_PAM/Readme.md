@@ -24,3 +24,22 @@ login;*;*;Wk0000-2400
 
 
 # 2. Дать конкретному пользователю права работать с докером  и возможность рестартить докер сервис
+
+Добавляем пользователя admin в группу docker
+```bash
+usermod -G docker admin
+```
+
+Через Polkit предоставляем права на рестарт сервиса 
+```
+/etc/polkit-1/rules.d/01-restart-docker.rules 
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.systemd1.manage-units") {
+        if (action.lookup("unit") == "docker.service" && subject.user === "admin"){
+            if (action.lookup("verb") == "restart") {
+                return polkit.Result.YES;
+            }
+        }
+    }
+});
+``` 
